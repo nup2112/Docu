@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/TutorialLayout.astro';
+import TutorialCard from '../components/tutorials/TutorialCard.astro';
+
+// Esto normalmente vendría de una base de datos o CMS
+const tutorials = [
+  {
+    title: "Introducción a App 1",
+    description: "Aprende los conceptos básicos para comenzar con App 1",
+    thumbnail: "/api/placeholder/320/180",
+    youtubeId: "video-id-1"
+  },
+  {
+    title: "Configuración Avanzada de App 2",
+    description: "Optimiza tu configuración para máximo rendimiento",
+    thumbnail: "/api/placeholder/320/180",
+    youtubeId: "video-id-2"
+  },
+  // Más tutoriales...
+];
+---
+
+<Layout title="Tutoriales">
+  <section class="tutorials">
+    <h1>Tutoriales en Video</h1>
+    <div class="tutorial-grid">
+      {tutorials.map(tutorial => (
+        <TutorialCard {...tutorial} />
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .tutorials {
+    padding: 2rem 0;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .tutorial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+</style>

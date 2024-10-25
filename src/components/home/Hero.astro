@@ -1,0 +1,38 @@
+---
+import SearchBar from '../common/SearchBar.astro';
+---
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Centro de Soporte MaxPlay</h1>
+    <p>Encuentra toda la información que necesitas sobre nuestras aplicaciones</p>
+    <SearchBar />
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+    border-radius: 0 0 2rem 2rem;
+  }
+
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    color: white;
+    font-size: 3rem;
+    margin: 0 0 1rem 0;
+  }
+
+  p {
+    font-size: 1.25rem;
+    margin: 0 0 2rem 0;
+    opacity: 0.9;
+  }
+</style>

@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const faqs = [
+  {
+    question: "¿Cómo puedo empezar con App 1?",
+    answer: "Para comenzar con App 1, primero necesitas instalarla siguiendo nuestra guía de instalación. Luego, puedes seguir el tutorial de inicio rápido que te guiará a través de las funcionalidades básicas."
+  },
+  {
+    question: "¿Cuáles son los requisitos del sistema?",
+    answer: "Los requisitos mínimos incluyen: Sistema operativo Windows 10/macOS 10.15 o superior, 4GB de RAM, y 1GB de espacio en disco."
+  },
+  // Más preguntas frecuentes...
+];
+---
+
+<Layout title="Preguntas Frecuentes">
+  <section class="faq">
+    <h1>Preguntas Frecuentes</h1>
+    <div class="faq-grid">
+      {faqs.map(faq => (
+        <details class="faq-item">
+          <summary>{faq.question}</summary>
+          <p>{faq.answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .faq {
+    padding: 2rem 0;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .faq-grid {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+    padding: 1rem 0;
+  }
+
+  summary {
+    font-weight: 500;
+    cursor: pointer;
+    padding: 1rem;
+    margin: -1rem;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary::after {
+    content: '+';
+    float: right;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--color-primary);
+    transition: transform 0.2s;
+  }
+
+  details[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-item p {
+    margin: 1rem 0 0 0;
+    padding: 0 1rem;
+  }
+</style>

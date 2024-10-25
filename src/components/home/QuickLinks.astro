@@ -1,0 +1,53 @@
+---
+const quickLinks = [
+  { title: 'Documentación App 1', url: '/docs/app1/getting-started', icon: '📚' },
+  { title: 'Tutoriales en Video', url: '/tutorials', icon: '🎥' },
+  { title: 'Preguntas Frecuentes', url: '/faq', icon: '❓' },
+  { title: 'Soporte Técnico', url: '/support', icon: '🛠️' },
+];
+---
+
+<div class="quick-links">
+  {quickLinks.map((link) => (
+    <a href={link.url} class="quick-link">
+      <span class="icon">{link.icon}</span>
+      <span class="title">{link.title}</span>
+    </a>
+  ))}
+</div>
+
+<style>
+  .quick-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .quick-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .quick-link:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .title {
+    font-weight: 500;
+    text-align: center;
+  }
+</style>

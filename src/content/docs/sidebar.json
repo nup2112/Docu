@@ -1,0 +1,188 @@
+{
+  "apps": [
+    {
+      "name": "Web Administrativa",
+      "sections": [
+        {
+          "title": "Primeros pasos",
+          "items": [
+            {
+              "title": "Inicio de sesión",
+              "href": "/docs/web-admin/primeros-pasos/#inicio-de-sesion"
+            },
+            {
+              "title": "Crear Taquilla",
+              "href": "/docs/web-admin/primeros-pasos/#gestión-de-taquillas"
+            },
+            {
+              "title": "Configurar Taquilla",
+              "href": "/docs/web-admin/primeros-pasos/#configurar-taquilla"
+            },
+            {
+              "title": "Registrar Taquilla",
+              "href": "/docs/web-admin/primeros-pasos/#registrar-taquilla"
+            }
+          ]
+        },
+        {
+          "title": "Ventas Totales",
+          "items": [
+            {
+              "title": "Resumen de Ventas",
+              "href": "/docs/web-admin/ventas-totales/#ventas-totales"
+            },
+            {
+              "title": "Ventas por comercializadora",
+              "href": "/docs/web-admin/ventas-totales/#vista-de-comercializadora"
+            },
+            {
+              "title": "Detalles de sorteo",
+              "href": "/docs/web-admin/ventas-totales/#detalles-de-sorteos"
+            },
+            {
+              "title": "Detalles de ticket",
+              "href": "/docs/web-admin/ventas-totales/#detalles-de-ticket"
+            }
+          ]
+        },
+        {
+          "title": "Relacion de Ticket",
+          "items": [
+            {
+              "title": "Historico de Tickets",
+              "href": "/docs/web-admin/relacion-ticket"
+            },
+            {
+              "title": "Filtrar Tickets",
+              "href": "/docs/web-admin/relacion-ticket"
+            },
+            {
+              "title": "Detalles del ticket",
+              "href": "/docs/web-admin/relacion-ticket"
+            },
+            {
+              "title": "Busqueda Avanzada",
+              "href": "/docs/web-admin/relacion-ticket"
+            }
+          ]
+        },
+        {
+          "title": "Configuracion",
+          "subsections": [
+            {
+              "title": "Centro de Apuesta",
+              "items": [
+                {
+                  "title": "Historico de Tickets",
+                  "href": "/docs/web-admin/primeros-pasos/#Primeros-pasos-en-MaxPlay"
+                },
+                {
+                  "title": "Filtrar Tickets",
+                  "href": "/docs/web-admin/primeros-pasos/#Crear-Taquilla"
+                },
+                {
+                  "title": "Detalles del ticket",
+                  "href": "/docs/web-admin/primeros-pasos/#Configurar-Taquilla"
+                },
+                {
+                  "title": "Busqueda Avanzada",
+                  "href": "/docs/web-admin/getting-started"
+                }
+              ]
+            },
+            {
+              "title": "Comercializadoras",
+              "items": [
+                {
+                  "title": "Historico de Tickets",
+                  "href": "/docs/web-admin/primeros-pasos/#Primeros-pasos-en-MaxPlay"
+                },
+                {
+                  "title": "Filtrar Tickets",
+                  "href": "/docs/web-admin/primeros-pasos/#Crear-Taquilla"
+                },
+                {
+                  "title": "Detalles del ticket",
+                  "href": "/docs/web-admin/primeros-pasos/#Configurar-Taquilla"
+                },
+                {
+                  "title": "Busqueda Avanzada",
+                  "href": "/docs/web-admin/getting-started"
+                }
+              ]
+            },
+            {
+              "title": "Taquillas",
+              "items": [
+                {
+                  "title": "Historico de Tickets",
+                  "href": "/docs/web-admin/primeros-pasos/#Primeros-pasos-en-MaxPlay"
+                },
+                {
+                  "title": "Filtrar Tickets",
+                  "href": "/docs/web-admin/primeros-pasos/#Crear-Taquilla"
+                },
+                {
+                  "title": "Detalles del ticket",
+                  "href": "/docs/web-admin/primeros-pasos/#Configurar-Taquilla"
+                },
+                {
+                  "title": "Busqueda Avanzada",
+                  "href": "/docs/web-admin/getting-started"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Operaciones",
+          "items": [
+            {
+              "title": "Sorteos",
+              "href": "/docs/web-admin/primeros-pasos/#Primeros-pasos-en-MaxPlay"
+            },
+            {
+              "title": "Consultar Ticket",
+              "href": "/docs/web-admin/primeros-pasos/#Crear-Taquilla"
+            },
+            {
+              "title": "Devolucion y Reintegro",
+              "href": "/docs/web-admin/primeros-pasos/#Configurar-Taquilla"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Taquilla Desktop",
+      "sections": [
+        {
+          "title": "instalar Taquilla Pc",
+          "items": [
+            {
+              "title": "installation",
+              "href": "/docs/desktop-taq/installation"
+            },
+            {
+              "title": "Registrar Taquilla",
+              "href": "/docs/desktop-taq/configuration"
+            }
+          ]
+        },
+        {
+          "title": "Configuracion",
+          "items": [
+            {
+              "title": "installation",
+              "href": "/docs/desktop-taq/installation"
+            },
+            {
+              "title": "configuration",
+              "href": "/docs/desktop-taq/configuration"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

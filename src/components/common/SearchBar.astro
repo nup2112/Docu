@@ -1,0 +1,151 @@
+---
+---
+
+<div class="search-container">
+    <form id="search-form" class="search-form">
+      <input 
+        type="search" 
+        id="search-input"
+        placeholder="Buscar en la documentación..."
+        aria-label="Buscar en la documentación"
+      />
+      <button type="submit" aria-label="Buscar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+    </form>
+    <div id="search-results" class="search-results"></div>
+  </div>
+  
+  <script>
+    const searchForm = document.getElementById('search-form');
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
+    const searchResults = document.getElementById('search-results');
+  
+    // Simular búsqueda (en producción, esto se conectaría a una API real)
+    searchForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const query = searchInput.value.trim();
+      
+      if (!query) return;
+  
+      // Simular carga
+      searchResults.innerHTML = 'Buscando...';
+      
+      // Simular resultados de búsqueda
+      setTimeout(() => {
+        const results = [
+          { title: 'Instalación de App 1', url: '/docs/app1/getting-started' },
+          { title: 'Configuración Avanzada', url: '/docs/app1/advanced-features' },
+        ].filter(result => 
+          result.title.toLowerCase().includes(query.toLowerCase())
+        );
+  
+        if (results.length === 0) {
+          searchResults.innerHTML = 'No se encontraron resultados';
+          return;
+        }
+  
+        searchResults.innerHTML = `
+          <ul>
+            ${results.map(result => `
+              <li>
+                <a href="${result.url}">${result.title}</a>
+              </li>
+            `).join('')}
+          </ul>
+        `;
+      }, 500);
+    });
+  
+    // Cerrar resultados al hacer clic fuera
+    document.addEventListener('click', (e) => {
+        if (!(e.target as Node) || !searchForm.contains(e.target as Node)) {
+        searchResults.innerHTML = '';
+        }
+    });
+  </script>
+  
+  <style>
+    .search-container {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  
+    .search-form {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 8px;
+      padding: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+  
+    input {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      font-size: 1rem;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    button {
+        background: var(--color-primary);
+        color: white;
+        border: none;
+        padding: 0.75rem;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    button:hover {
+        background: var(--color-secondary);
+    }
+
+    .search-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border-radius: 8px;
+        margin-top: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .search-results ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .search-results li {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .search-results li:last-child {
+        border-bottom: none;
+    }
+
+    .search-results a {
+        display: block;
+        padding: 1rem;
+        color: var(--color-text);
+        text-decoration: none;
+    }
+
+    .search-results a:hover {
+        background: var(--color-card-bg);
+    }
+</style>

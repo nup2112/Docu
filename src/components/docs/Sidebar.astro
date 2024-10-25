@@ -1,0 +1,187 @@
+---
+import sidebarData from '../../content/docs/sidebar.json';
+
+const navigation = sidebarData.apps;
+---
+
+<aside class="sidebar">
+  <nav>
+    {navigation.map(app => (
+      <div class="nav-section">
+        <button class="section-title">
+          {app.name}
+          <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <ul class="nav-items">
+          {app.sections.map(section => (
+            <li class="section-item">
+              <button class="subsection-title">
+                {section.title}
+                <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+              {section.subsections ? (
+                <ul class="subsection-items">
+                  {section.subsections.map(subsection => (
+                    <li class="subsection-item">
+                      <button class="subsubsection-title">
+                        {subsection.title}
+                        <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                      </button>
+                      <ul class="subsubsection-items">
+                        {subsection.items.map(item => (
+                          <li>
+                            <a href={item.href} class="doc-link">{item.title}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <ul class="subsection-items">
+                  {section.items.map(item => (
+                    <li>
+                      <a href={item.href} class="doc-link">{item.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </nav>
+</aside>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Manejar secciones principales
+    document.querySelectorAll('.section-title').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const section = (e.currentTarget as HTMLElement).closest('.nav-section');
+        section?.classList.toggle('expanded');
+        (e.currentTarget as HTMLElement).querySelector('.chevron')?.classList.toggle('rotated');
+      });
+    });
+
+    // Manejar subsecciones
+    document.querySelectorAll('.subsection-title').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const section = (e.currentTarget as HTMLElement).closest('.section-item');
+        section?.classList.toggle('expanded');
+        (e.currentTarget as HTMLElement).querySelector('.chevron')?.classList.toggle('rotated');
+      });
+    });
+
+    // Manejar subsubsecciones
+    document.querySelectorAll('.subsubsection-title').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const section = (e.currentTarget as HTMLElement).closest('.subsection-item');
+        section?.classList.toggle('expanded');
+        (e.currentTarget as HTMLElement).querySelector('.chevron')?.classList.toggle('rotated');
+      });
+    });
+
+    // Manejar navegación
+    document.querySelectorAll('.doc-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+        if (href) {
+          window.dispatchEvent(new CustomEvent('router-change', { 
+            detail: { path: href } 
+          }));
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .sidebar {
+    background: var(--color-card-bg);
+    border-right: 1px solid var(--color-border);
+    padding: 1rem;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .nav-section {
+    margin-bottom: 1rem;
+  }
+
+  .section-title, .subsection-title, .subsubsection-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--color-heading);
+  }
+
+  .subsection-title {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-items, .subsection-items {
+    display: none;
+    list-style: none;
+    padding-left: 1rem;
+    margin: 0;
+  }
+
+  .nav-section.expanded > .nav-items,
+  .section-item.expanded > .subsection-items {
+    display: block;
+  }
+
+  .chevron {
+    transition: transform 0.2s ease;
+  }
+
+  .chevron.rotated {
+    transform: rotate(180deg);
+  }
+
+  .subsubsection-title {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .subsubsection-items {
+    display: none;
+    list-style: none;
+    padding-left: 1rem;
+    margin: 0;
+  }
+
+  .subsection-item.expanded > .subsubsection-items {
+    display: block;
+  }
+
+  .doc-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    color: var(--color-text);
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+
+  .doc-link:hover {
+    background: var(--color-hover);
+  }
+</style>

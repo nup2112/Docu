@@ -1,0 +1,84 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  thumbnail: string;
+  youtubeId: string;
+}
+
+const { title, description, thumbnail, youtubeId } = Astro.props;
+const youtubeUrl = `https://youtube.com/watch?v=${youtubeId}`;
+---
+
+<a href={youtubeUrl} target="_blank" rel="noopener noreferrer" class="tutorial-card">
+  <div class="thumbnail">
+    <img src={thumbnail} alt={title} loading="lazy" />
+    <div class="play-button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polygon points="10 8 16 12 10 16 10 8"></polygon>
+      </svg>
+    </div>
+  </div>
+  <div class="content">
+    <h3>{title}</h3>
+    <p>{description}</p>
+  </div>
+</a>
+
+<style>
+  .tutorial-card {
+    display: block;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .tutorial-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .thumbnail {
+    position: relative;
+    aspect-ratio: 16/9;
+  }
+
+  .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+
+  .tutorial-card:hover .play-button {
+    opacity: 1;
+  }
+
+  .content {
+    padding: 1.5rem;
+  }
+
+  h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+</style>
