@@ -9,7 +9,7 @@ description: Inicio de sesión en la web administrativa y primeras impresiones d
 
 Para acceder al sistema administrativo de MaxPlay:
 
-1. Visita [la Web Administrativa de MaxPlay](https://web.maxplaygo.com/login/)
+1. Visita <a href="https://web.maxplaygo.com/login/" target="_blank">la Web Administrativa de MaxPlay</a>
 2. Ingresa tus credenciales:
    - Usuario (proporcionado por tu proveedor)
    - Contraseña

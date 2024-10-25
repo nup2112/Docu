@@ -1,30 +1,21 @@
 ---
 import { getCollection } from 'astro:content';
 
-// Get the current URL path
 const currentPath = Astro.url.pathname;
+const pathWithoutHash = currentPath.replace('/docs/', '').split('#')[0];
 
-// Function to get content based on path
-async function getContent() {
-  if (currentPath === '/docs' || currentPath === '/docs/') {
-    return null;
-  }
-
-  try {
-    const [pathWithoutHash] = currentPath.replace('/docs/', '').split('#');
-    const content = await import(`../../content/docs/${pathWithoutHash}.md`);
-    return content;
-  } catch (error) {
-    console.error('Error loading content:', error);
-    return null;
-  }
+// Prevenir acceso directo a archivos .md
+if (currentPath.endsWith('.md')) {
+  return Astro.redirect('/docs');
 }
 
-const content = await getContent();
-
-// Handle direct markdown access
-if (Astro.request.headers.get('accept')?.includes('text/html') && content) {
-  return Astro.redirect('/docs');
+let content = null;
+if (currentPath !== '/docs' && currentPath !== '/docs/') {
+  try {
+    content = await import(`../../content/docs/${pathWithoutHash}.md`);
+  } catch (error) {
+    console.error('Error loading content:', error);
+  }
 }
 ---
 
@@ -58,106 +49,71 @@ if (Astro.request.headers.get('accept')?.includes('text/html') && content) {
 </div>
 
 <script>
-  function scrollToHash() {
-    const hash = window.location.hash;
+  function handleScroll(hash) {
     if (hash) {
-      const element = document.querySelector(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
   }
 
   async function loadContent(path) {
-  try {
-    if (path === '/docs' || path === '/docs/') {
-      window.location.reload();
-      return;
-    }
+    try {
+      if (path === '/docs' || path === '/docs/') {
+        window.location.href = '/docs';
+        return;
+      }
 
-    // Separar el path y el hash
-    const [pathWithoutHash, hash] = path.replace('/docs/', '').split('#');
-    
-    // Cargar el contenido
-    const response = await fetch(`/docs/${pathWithoutHash}`);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const html = await response.text();
-    const docContent = document.getElementById('doc-content');
-    
-    if (docContent) {
-      // Actualizar el contenido
-      docContent.innerHTML = `<article class="markdown-content">${html}</article>`;
+      const [pathWithoutHash, hash] = path.replace('/docs/', '').split('#');
+      const response = await fetch(`/docs/${pathWithoutHash}`);
       
-      // Si hay un hash, intentar hacer scroll después de que el contenido se haya cargado
-      if (hash) {
-        // Esperar un momento para que el DOM se actualice
-        setTimeout(() => {
-          const element = document.querySelector(`#${decodeURIComponent(hash)}`);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 100);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      
+      const html = await response.text();
+      const docContent = document.getElementById('doc-content');
+      
+      if (docContent) {
+        docContent.innerHTML = `<article class="markdown-content">${html}</article>`;
+        if (hash) handleScroll(`#${decodeURIComponent(hash)}`);
       }
+    } catch (error) {
+      console.error('Error loading content:', error);
     }
-  } catch (error) {
-    console.error('Error loading content:', error);
   }
-}
 
-// Manejar la navegación y el scroll inicial
-document.addEventListener('DOMContentLoaded', () => {
-  // Scroll inicial si hay un hash en la URL
-  const hash = window.location.hash.slice(1);
-  if (hash) {
-    setTimeout(() => {
-      const element = document.querySelector(`#${decodeURIComponent(hash)}`);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
-  }
-});
+  // Event Listeners
+  document.addEventListener('DOMContentLoaded', () => {
+    handleScroll(window.location.hash);
+  });
 
-// Router events
-window.addEventListener('router-change', ((event) => {
-  const path = (event as CustomEvent).detail.path;
-  window.history.pushState({}, '', path);
-  loadContent(path);
-}) as EventListener);
+  window.addEventListener('router-change', ((event) => {
+    const path = (event as CustomEvent).detail.path;
+    window.history.pushState({}, '', path);
+    loadContent(path);
+  }) as EventListener);
 
-// Manejar navegación del navegador
-window.addEventListener('popstate', () => {
-  loadContent(window.location.pathname + window.location.hash);
-});
+  window.addEventListener('popstate', () => {
+    loadContent(window.location.pathname + window.location.hash);
+  });
 
-// Observar cambios en los enlaces del documento
-const observeLinks = () => {
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const hash = link.getAttribute('href');
-      if (hash) {
-        const element = document.querySelector(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-          // Actualizar la URL sin recargar la página
+  // Handle anchor links
+  const observer = new MutationObserver(() => {
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const hash = link.getAttribute('href');
+        if (hash) {
+          handleScroll(hash);
           window.history.pushState(null, '', window.location.pathname + hash);
         }
-      }
+      });
     });
   });
-};
 
-// Observar cambios en el DOM para actualizar los enlaces
-const observer = new MutationObserver(observeLinks);
-observer.observe(document.body, { 
-  childList: true, 
-  subtree: true 
-});
+  observer.observe(document.body, { childList: true, subtree: true });
 </script>
 
 <style is:global>
